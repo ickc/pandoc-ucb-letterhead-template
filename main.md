@@ -1,5 +1,5 @@
 ---
-title: Title
+title: UCB Letterhead
 author: Firstname Lastname
 date: \today
 papersize:    letter
@@ -18,6 +18,7 @@ mainfontoptions:
 ucb-letterhead:
     lfoot: Letter from Firstname Lastname regarding ...
     cfoot:
+    title: Title
     department: Department
     address: Address
     address2: Berkeley CA, 94720
