@@ -1,0 +1,15 @@
+.ipynb_checkpoints/
+*-eps-converted-to.pdf
+*.lua
+*.xmpi
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
+*.pdf
+*.tex
