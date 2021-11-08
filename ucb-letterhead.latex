@@ -272,7 +272,6 @@ $else$
 \makesavenoteenv{longtable}
 $endif$
 $endif$
-$if(graphics)$
 \usepackage{graphicx}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
@@ -281,7 +280,7 @@ $if(graphics)$
 % Scale images if necessary, so that they will not overflow the page
 % margins by default, and it is still possible to overwrite the defaults
 % using explicit options in \includegraphics[width, height, ...]{}
-\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
 % Set default figure placement to htbp
 \makeatletter
 \def\fps@figure{htbp}
@@ -394,6 +393,23 @@ $endfor$
 \let\LanguageShortHands\languageshorthands
 \def\languageshorthands#1{}
 $endif$
+% begin UCB-letterhead
+\usepackage{fancyhdr} % for fancy headers
+\usepackage{lastpage}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead{} % footer for pages 2 on
+$if(ucb-letterhead.lfoot)$\lfoot{\footnotesize {\textit{$ucb-letterhead.lfoot$}}}$endif$ % Left footer
+\cfoot{$if(ucb-letterhead.cfoot)$\footnotesize {\textit{$ucb-letterhead.cfoot$}}$endif$} % Change for center footer
+\rfoot{\footnotesize Page \thepage\ of \pageref{LastPage}} % Right footer page #s 
+\renewcommand{\footrulewidth}{0pt}
+%first page margins are different to accommodate the letterhead
+\topmargin=-1.1in % Moves the top margin; here it is a negative value to move the text up
+\textheight=9.5in % Total text height for this page
+\oddsidemargin=-10pt % Left margin; widened here with a negative value
+\textwidth=7in % Text width
+\let\raggedleft\raggedright % Makes the date appear on the left
+% end UCB-letterhead
 $for(header-includes)$
 $header-includes$
 $endfor$
@@ -498,18 +514,28 @@ $endif$
 $if(has-frontmatter)$
 \frontmatter
 $endif$
-$if(title)$
-$if(beamer)$
-\frame{\titlepage}
-$else$
-\maketitle
-$endif$
-$if(abstract)$
-\begin{abstract}
-$abstract$
-\end{abstract}
-$endif$
-$endif$
+% begin UCB-letterhead
+\begin{letter}{$if(ucb-letterhead.recipient)$$ucb-letterhead.recipient$$endif$} %put the recipient information here and maybe a reference line
+
+\begin{center}
+
+\begin{picture}(1000,1)
+  \put(1,-2){\includegraphics[scale=0.38]{UCBerkeley_wordmark_blue.eps}}
+  \put(439,-20){\includegraphics[scale=0.125]{ucberkeleyseal_139_540.eps}}
+  $if(author)$\put(150,33){\textbf{\footnotesize $for(author)$$author$$sep$ \and $endfor$ }}$endif$
+  $if(title)$\put(150,22){\footnotesize $title$ }$endif$
+  $if(ucb-letterhead.department)$\put(150,11){\footnotesize $ucb-letterhead.department$ }$endif$
+  $if(ucb-letterhead.address)$\put(280,33){\footnotesize $ucb-letterhead.address$ }$endif$
+  $if(ucb-letterhead.address2)$\put(280,22){\footnotesize $ucb-letterhead.address2$ }$endif$
+  $if(ucb-letterhead.phone)$\put(280,11){\footnotesize Phone: $ucb-letterhead.phone$ } $endif$
+  $if(ucb-letterhead.mobile)$\put(280,0){\footnotesize Mobile: $ucb-letterhead.mobile$ }$endif$ % Comment this out to omit your mobile
+  $if(ucb-letterhead.email)$\put(280,-11){\footnotesize E-mail: $ucb-letterhead.email$ }$endif$
+  $if(ucb-letterhead.url)$\put(280,-22){\footnotesize $ucb-letterhead.url$ }$endif$
+  \put(0,-28){\rule{\textwidth}{0.4pt}}
+\end{picture}
+\end{center}
+\vspace{10mm}
+% end UCB-letterhead
 
 $for(include-before)$
 $include-before$
@@ -588,4 +614,5 @@ $for(include-after)$
 $include-after$
 
 $endfor$
+\end{letter}
 \end{document}
