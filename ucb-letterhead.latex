@@ -285,7 +285,6 @@ $endif$
 \makeatletter
 \def\fps@figure{htbp}
 \makeatother
-$endif$
 $if(svg)$
 \usepackage{svg}
 $endif$
