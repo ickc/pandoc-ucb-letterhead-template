@@ -6,12 +6,16 @@ DIFF = difft
 pandocArg = -V linkcolorblue -V citecolor=blue -V urlcolor=blue
 
 SRC = $(wildcard *.md)
+TEX = $(patsubst %.md,%.tex,$(SRC))
 PDF = $(patsubst %.md,%.pdf,$(SRC))
 
 .PHONY: pdf
 pdf: $(PDF)  ## generate PDFs from markdown files
-%.pdf: %.md $(TEMPLATE)
-	pandoc -s -o $@ $< --template=$(TEMPLATE) --pdf-engine=$(LATEX) $(pandocArg)
+%.pdf: %.tex
+	latexmk -$(LATEX) $<
+	mv $(@F) $@
+%.tex: %.md $(TEMPLATE)
+	pandoc -s -o $@ $< --template=$(TEMPLATE) $(pandocArg)
 
 .PHONY: template
 template: $(TEMPLATE)  ## generate the pandoc UCB letterhead template
