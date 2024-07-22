@@ -13,7 +13,7 @@ PDF = $(patsubst %.md,%.pdf,$(SRC))
 pdf: $(PDF)  ## generate PDFs from markdown files
 %.pdf: %.tex
 	latexmk -$(LATEX) $<
-	mv $(@F) $@
+	@if [[ $(@F) != $@ ]]; then mv $(@F) $@; fi
 %.tex: %.md $(TEMPLATE)
 	pandoc -s -o $@ $< --template=$(TEMPLATE) $(pandocArg)
 
