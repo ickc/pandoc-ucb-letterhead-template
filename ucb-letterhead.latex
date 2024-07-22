@@ -1,3 +1,4 @@
+% Generated using pandoc 3.1.9
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode$for(hyperrefoptions)$,$hyperrefoptions$$endfor$}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
@@ -514,6 +515,19 @@ $endif$
 $if(has-frontmatter)$
 \frontmatter
 $endif$
+$if(title)$
+$if(beamer)$
+\frame{\titlepage}
+$else$
+% \maketitle
+$endif$
+$if(abstract)$
+\begin{abstract}
+$abstract$
+\end{abstract}
+$endif$
+$endif$
+
 % begin UCB-letterhead
 \begin{letter}{$if(ucb-letterhead.recipient)$$ucb-letterhead.recipient$$endif$} %put the recipient information here and maybe a reference line
 
@@ -536,7 +550,6 @@ $endif$
 \end{center}
 \vspace{10mm}
 % end UCB-letterhead
-
 $for(include-before)$
 $include-before$
 
@@ -616,3 +629,4 @@ $include-after$
 $endfor$
 \end{letter}
 \end{document}
+
