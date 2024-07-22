@@ -3,6 +3,7 @@
 TEMPLATE = ucb-letterhead.latex
 LATEX = lualatex
 DIFF = difft
+pandocArg = -V linkcolorblue -V citecolor=blue -V urlcolor=blue
 
 SRC = $(wildcard *.md)
 PDF = $(patsubst %.md,%.pdf,$(SRC))
@@ -10,7 +11,7 @@ PDF = $(patsubst %.md,%.pdf,$(SRC))
 .PHONY: pdf
 pdf: $(PDF)  ## generate PDFs from markdown files
 %.pdf: %.md $(TEMPLATE)
-	pandoc -s -o $@ $< --template=$(TEMPLATE) --pdf-engine=$(LATEX)
+	pandoc -s -o $@ $< --template=$(TEMPLATE) --pdf-engine=$(LATEX) $(pandocArg)
 
 .PHONY: template
 template: $(TEMPLATE)  ## generate the pandoc UCB letterhead template
