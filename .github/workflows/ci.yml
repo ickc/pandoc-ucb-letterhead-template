@@ -1,0 +1,24 @@
+name: CI
+
+on: push
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-24.04
+          - macos-13
+          - macos-14
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install devbox
+        uses: jetify-com/devbox-install-action@v0.11.0
+        with:
+          enable-cache: true
+
+      - name: Generate template and make PDF
+        run: devbox run make pdf -B
