@@ -7,7 +7,7 @@ Adapted from [Berkeley 2020 Letterhead 4 color formal version - Overleaf, Online
 Follow the example in `main.md` to see how to write the cover letter. Then run
 
 ```sh
-pandoc -s -o main.pdf main.md --template=ucb-letterhead.latex --pdf-engine=lualatex
+pandoc -s -o src/main.pdf src/main.md --template=ucb-letterhead.latex --pdf-engine=lualatex
 ```
 
 Note that for best results, use a matching pandoc version with the template provided here. See the first line of the template `ucb-letterhead.latex` for the pandoc version it supports.

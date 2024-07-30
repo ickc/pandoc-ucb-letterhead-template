@@ -1,18 +1,23 @@
 .DEFAULT_GOAL = help
 
+SRC_DIR ?= src
+AUX_DIR ?= aux
+BUILD_DIR ?= build
+
 TEMPLATE = ucb-letterhead.latex
 LATEX = lualatex
 DIFF = difft
 pandocArg = -V linkcolorblue -V citecolor=blue -V urlcolor=blue
 
-SRC = $(wildcard *.md)
-TEX = $(patsubst %.md,%.tex,$(SRC))
-PDF = $(patsubst %.md,%.pdf,$(SRC))
+SRC = $(wildcard $(SRC_DIR)/*.md)
+TEX = $(patsubst $(SRC_DIR)/%.md,$(AUX_DIR)/%.tex,$(SRC))
+PDF = $(patsubst $(SRC_DIR)/%.md,$(BUILD_DIR)/%.pdf,$(SRC))
 
-%.pdf: %.tex
-	latexmk -$(LATEX) $<
-	@if [[ $(@F) != $@ ]]; then mv $(@F) $@; fi
-%.tex: %.md $(TEMPLATE)
+$(BUILD_DIR)/%.pdf: $(AUX_DIR)/%.tex
+	@mkdir -p $(@D)
+	latexmk -lualatex $< -auxdir=$(AUX_DIR) -outdir=$(BUILD_DIR)
+$(AUX_DIR)/%.tex: $(SRC_DIR)/%.md $(TEMPLATE)
+	@mkdir -p $(@D)
 	pandoc -s -o $@ $< --template=$(TEMPLATE) $(pandocArg)
 
 .PHONY: pdf open serve template diff clean Clean update help
@@ -29,9 +34,9 @@ diff: $(TEMPLATE)  ## show differences between the default template and the gene
 	$(DIFF) <(pandoc --print-default-template=latex) $<
 
 clean:  ## remove generated files
-	rm -f *.aux *.fdb_latexmk *.fls *.log
+	rm -rf $(AUX_DIR)
 Clean: clean  ## remove generated files and PDFs
-	rm -f *.pdf
+	rm -rf $(BUILD_DIR) *.pdf
 
 update:  ## update environments using nix & devbox
 	devbox update --all-projects --sync-lock
