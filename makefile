@@ -4,6 +4,9 @@ SRC_DIR ?= src
 AUX_DIR ?= aux
 BUILD_DIR ?= build
 
+# reproducible build: https://tex.stackexchange.com/a/313605
+export SOURCE_DATE_EPOCH = 0
+
 TEMPLATE = ucb-letterhead.latex
 LATEX = lualatex
 DIFF = difft
