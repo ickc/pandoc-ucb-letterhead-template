@@ -23,7 +23,7 @@ $(AUX_DIR)/%.tex: $(SRC_DIR)/%.md $(TEMPLATE)
 	@mkdir -p $(@D)
 	pandoc -s -o $@ $< --template=$(TEMPLATE) $(pandocArg)
 
-.PHONY: pdf open serve template diff clean Clean update help
+.PHONY: pdf open serve template diff verify clean Clean update help
 pdf: $(PDF)  ## generate PDFs from markdown files
 open: $(PDF)  ## open the PDFs
 	open $^ --background
@@ -35,6 +35,9 @@ $(TEMPLATE): util/generate_pandoc_template.py
 	$< > $@
 diff: $(TEMPLATE)  ## show differences between the default template and the generated template
 	$(DIFF) <(pandoc --print-default-template=latex) $<
+
+verify: $(PDF)  ## verify PDF/A-1b compliance
+	verapdf --format text $^
 
 clean:  ## remove generated files
 	rm -rf $(AUX_DIR)
