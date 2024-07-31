@@ -39,7 +39,7 @@ diff: $(TEMPLATE)  ## show differences between the default template and the gene
 clean:  ## remove generated files
 	rm -rf $(AUX_DIR)
 Clean: clean  ## remove generated files and PDFs
-	rm -rf $(BUILD_DIR) *.pdf
+	rm -rf $(BUILD_DIR)
 
 update:  ## update environments using nix & devbox
 	devbox update --all-projects --sync-lock

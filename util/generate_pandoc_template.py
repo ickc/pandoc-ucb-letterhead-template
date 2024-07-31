@@ -35,6 +35,7 @@ def make_ucb_letterhead_template(pandoc_template: list[str]) -> list[str]:
     - Removes $if(graphics)$ and the first $endif$ after it, keeping everything in between intact.
     """
     header_includes_insertion = """
+\\usepackage[a-1b]{pdfx}
 % begin UCB-letterhead
 \\usepackage{fancyhdr} % for fancy headers
 \\usepackage{lastpage}
@@ -62,8 +63,8 @@ $if(ucb-letterhead.lfoot)$\\lfoot{\\footnotesize {\\textit{$ucb-letterhead.lfoot
 \\begin{center}
 
 \\begin{picture}(1000,1)
-  \\put(1,-2){\\includegraphics[scale=0.38]{UCBerkeley_wordmark_blue.eps}}
-  \\put(439,-20){\\includegraphics[scale=0.125]{ucberkeleyseal_139_540.eps}}
+  \\put(1,-2){\\includegraphics[scale=0.38]{UCBerkeley_wordmark_blue.pdf}}
+  \\put(439,-20){\\includegraphics[scale=0.125]{ucberkeleyseal_139_540.pdf}}
   $if(author)$\\put(150,33){\\textbf{\\footnotesize $for(author)$$author$$sep$ \\and $endfor$ }}$endif$
   $if(ucb-letterhead.title)$\\put(150,22){\\footnotesize $ucb-letterhead.title$ }$endif$
   $if(ucb-letterhead.department)$\\put(150,11){\\footnotesize $ucb-letterhead.department$ }$endif$
