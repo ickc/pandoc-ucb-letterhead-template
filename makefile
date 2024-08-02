@@ -15,6 +15,7 @@ pandocArg = -V linkcolorblue -V citecolor=blue -V urlcolor=blue
 SRC = $(wildcard $(SRC_DIR)/*.md)
 TEX = $(patsubst $(SRC_DIR)/%.md,$(AUX_DIR)/%.tex,$(SRC))
 PDF = $(patsubst $(SRC_DIR)/%.md,$(BUILD_DIR)/%.pdf,$(SRC))
+TXT = $(patsubst $(SRC_DIR)/%.md,$(BUILD_DIR)/%.txt,$(SRC))
 
 $(BUILD_DIR)/%.pdf: $(AUX_DIR)/%.tex
 	@mkdir -p $(@D)
@@ -22,9 +23,14 @@ $(BUILD_DIR)/%.pdf: $(AUX_DIR)/%.tex
 $(AUX_DIR)/%.tex: $(SRC_DIR)/%.md $(TEMPLATE)
 	@mkdir -p $(@D)
 	pandoc -s -o $@ $< --template=$(TEMPLATE) $(pandocArg)
+$(BUILD_DIR)/%.txt: $(SRC_DIR)/%.md
+	@mkdir -p $(@D)
+	pandoc -o $@ $< -t commonmark --reference-links
 
-.PHONY: pdf open serve template diff verify clean Clean update help
+.PHONY: all pdf txt open serve template diff verify clean Clean update help
+all: pdf txt  ## generate PDFs and plain text files from markdown files
 pdf: $(PDF)  ## generate PDFs from markdown files
+txt: $(TXT)  ## generate plain text files from markdown files
 open: $(PDF)  ## open the PDFs
 	open $^ --background
 serve:  ## open and watch for changes and recompile the PDFs
