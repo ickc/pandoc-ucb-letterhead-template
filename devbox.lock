@@ -97,20 +97,20 @@
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/s5mpp58gy7f84m6asgync6a9aclix2vj-texlive-2023-env",
+              "path": "/nix/store/zxjn9n07ikg9bpmngak0sfxa588y9v5y-texlive-2023-env",
               "default": true
             },
             {
               "name": "man",
-              "path": "/nix/store/72jd306fsn8zkhzgjlc1b1k4ml9648s3-texlive-2023-env-man",
+              "path": "/nix/store/4dx774ns6pjj1v9cgdsv9dkv4jq4mli4-texlive-2023-env-man",
               "default": true
             },
             {
               "name": "info",
-              "path": "/nix/store/q64vx7i5fbfla3hmvl9w73vrsf3qxrvi-texlive-2023-env-info"
+              "path": "/nix/store/5idjh31cy88r6rgiv104lawkcvyxav1f-texlive-2023-env-info"
             }
           ],
-          "store_path": "/nix/store/s5mpp58gy7f84m6asgync6a9aclix2vj-texlive-2023-env"
+          "store_path": "/nix/store/zxjn9n07ikg9bpmngak0sfxa588y9v5y-texlive-2023-env"
         },
         "x86_64-linux": {
           "outputs": [
